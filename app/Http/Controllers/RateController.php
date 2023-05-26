@@ -20,8 +20,8 @@ class RateController extends Controller
     {
         try {
             $rate = $this->rateService->getBtcUahRate();
-        } catch (GuzzleException | AccessDeniedException | InvalidTypeException $e) {
-            return response("", 400);
+        } catch (GuzzleException|AccessDeniedException|InvalidTypeException $e) {
+            return response()->json("", 400);
         }
 
         return response()->json($rate);

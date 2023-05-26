@@ -37,9 +37,10 @@ class FileDatabase
         $splitCount = count(glob($this->path . str_replace("%d", "*", $this->name)));
 
         for ($i = 1; $i <= $splitCount; $i++) {
-            $emails = explode($this->delimiter, file_get_contents($this->getFilePath($splitCount)));
-            foreach ($emails as $email) {
-                if ($value == $email)
+            $items = explode($this->delimiter, file_get_contents($this->getFilePath($i)));
+            array_pop($items);
+            foreach ($items as $item) {
+                if ($value == $item)
                     return true;
             }
         }
@@ -51,12 +52,16 @@ class FileDatabase
     {
         $splitCount = count(glob($this->path . str_replace("%d", "*", $this->name)));
 
-        $arrays = [];
+        $items = [];
         for ($i = 1; $i <= $splitCount; $i++) {
-            $arrays[] = explode($this->delimiter, file_get_contents($this->getFilePath($splitCount)));
+            $part = explode($this->delimiter, file_get_contents($this->getFilePath($i)));
+            array_pop($part);
+            foreach ($part as $item) {
+                $items[] = $item;
+            }
         }
 
-        return array_merge($arrays);
+        return $items;
     }
 
     protected function getFilePath($partNumber)

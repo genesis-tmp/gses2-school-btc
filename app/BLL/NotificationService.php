@@ -3,6 +3,7 @@
 namespace App\BLL;
 
 use App\Utils\FileDatabase;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationService
 {
@@ -22,4 +23,22 @@ class NotificationService
         return true;
     }
 
+    public function notificateAll(float $rate)
+    {
+        $emails = $this->email_db->getAll();
+        $offset = 0;
+        while ($offset < count($emails)) {
+            $emails_part = array_slice($emails, $offset, env("MAIL_OFFSET"));
+
+            dispatch(function () use ($rate, $emails_part) {
+                Mail::raw(sprintf(env("MAIL_TEMPLATE"), $rate), function ($message) use ($emails_part) {
+                    $message->subject(env("MAIL_TITLE"))
+                        ->from(env("MAIL_FROM"))
+                        ->to($emails_part);
+                });
+            });
+
+            $offset += env("MAIL_OFFSET");
+        }
+    }
 }

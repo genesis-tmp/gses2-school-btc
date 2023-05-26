@@ -31,7 +31,7 @@ class NotificationController extends Controller
 
     public function notificateAll()
     {
-        //ToDo
-        return 0;
+        $this->notificationService->notificateAll($this->rateService->getBtcUahRate());
+        return response()->json("", 200);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RateController;
 use Illuminate\Http\Request;
 
 /*
@@ -13,3 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/rate', [RateController::class, 'index']);
+Route::post('/subscribe', [NotificationController::class, 'subscribe']);
+Route::post('/sendEmails', [NotificationController::class, 'notificateAll']);

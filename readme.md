@@ -29,5 +29,5 @@
 
 ## Використані засоби
 1. PHP + Laravel
-
+2. BitPay API - https://bitpay.com/api/
 

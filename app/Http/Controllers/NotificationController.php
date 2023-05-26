@@ -19,8 +19,14 @@ class NotificationController extends Controller
 
     public function subscribe(SubscribeEmailModel $email)
     {
-        //ToDo
-        return 0;
+        request()->validate([
+            "email" => "required"
+        ]);
+
+        $email = request("email");
+        //ToDo Validate email
+
+        return response()->json("", ($this->notificationService->subscribe($email)) ? 200 : 409);
     }
 
     public function notificateAll()

@@ -39,3 +39,39 @@
   В моїй реалізації - файлова БД це не один файл, а група файлів, розбитих за розміром FILE_DB_PART_SIZE.
 * Для прискорення виконання запитів та зменшення навантаження на SMTP сервер - надсилаються групові EMAIL
   з максимальною кількістю отримувачів в одному листі MAIL_OFFSET
+
+## Процес встановлення
+Для встановлення і ініціалізації - виконати команди:
+
+    git clone https://github.com/genesis-tmp/gses2-shool-btc.git
+    cd gses2-shool-btc
+    composer update
+
+Після успішного виконання налаштувати файл .env
+
+Для запуску Docker контейнера:
+
+    sudo docker-compose up -d --build
+
+## Використання сервісу
+
+Для отримання поточного курсу біткоїна:
+
+    curl -X 'GET' \
+    'http://localhost/api/rate' \
+    -H 'accept: application/json' -i
+
+Для підписання емейлу на сервіс:
+
+    curl -X 'POST' \
+    'http://localhost/api/subscribe' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'email=test%40gmail.com' -i
+
+Для відправки актуального курсу всім підписаним користувачам:
+
+    curl -X 'POST' \
+    'http://localhost/api/sendEmails' \
+    -H 'accept: application/json' \
+    -d '' -i

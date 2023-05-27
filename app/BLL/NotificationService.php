@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 class NotificationService
 {
+    /** @var FileDatabase */
     protected $email_db;
 
     public function __construct()
@@ -14,6 +15,12 @@ class NotificationService
         $this->email_db = new FileDatabase(env("FILE_DB_FOLDER"), env("FILE_DB_EMAILS_NAME"), env("FILE_DB_EMAILS_DELIMITER"), env("FILE_DB_PART_SIZE"));
     }
 
+    /**
+     * Add email to file database
+     *
+     * @param string $email Email
+     * @return bool if this email is already in the database then false is returned else true
+     */
     public function subscribe(string $email)
     {
         if ($this->email_db->contains($email))
@@ -23,6 +30,12 @@ class NotificationService
         return true;
     }
 
+    /**
+     * Notificate all users by emails
+     *
+     * @param float $rate Current bitcoin rate
+     * @return void
+     */
     public function notificateAll(float $rate)
     {
         $emails = $this->email_db->getAll();

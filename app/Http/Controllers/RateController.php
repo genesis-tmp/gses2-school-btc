@@ -9,13 +9,22 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class RateController extends Controller
 {
+    /** @var RateService */
     private $rateService;
 
+    /**
+     * @param RateService $rateService
+     */
     public function __construct(RateService $rateService)
     {
         $this->rateService = $rateService;
     }
 
+    /**
+     * Rate API realisation
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         try {

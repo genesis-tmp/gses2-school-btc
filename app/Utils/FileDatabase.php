@@ -4,11 +4,21 @@ namespace App\Utils;
 
 class FileDatabase
 {
+    /** @var string */
     protected $path;
+    /** @var string */
     protected $name;
+    /** @var string */
     protected $delimiter;
+    /** @var string */
     protected $partSize;
 
+    /**
+     * @param string $path Folder path where file database stores
+     * @param string $name File name of database
+     * @param string $delimiter Values delimiter
+     * @param int $partSize Max size of the file database part (in bytes)
+     */
     public function __construct(string $path, string $name, string $delimiter, int $partSize)
     {
         $this->path = $path;
@@ -19,6 +29,12 @@ class FileDatabase
             mkdir($path);
     }
 
+    /**
+     * Add value to file database
+     *
+     * @param string $value
+     * @return void
+     */
     public function add(string $value)
     {
         $splitCount = max(1, count(glob($this->path . str_replace("%d", "*", $this->name))));
@@ -32,6 +48,12 @@ class FileDatabase
         fclose($handle);
     }
 
+    /**
+     * Check if file database contains some value
+     *
+     * @param string $value
+     * @return bool true if file database contains some value else false
+     */
     public function contains(string $value)
     {
         $splitCount = count(glob($this->path . str_replace("%d", "*", $this->name)));
@@ -48,6 +70,11 @@ class FileDatabase
         return false;
     }
 
+    /**
+     * Get all values from file database
+     *
+     * @return array Array that contains all values from file database
+     */
     public function getAll()
     {
         $splitCount = count(glob($this->path . str_replace("%d", "*", $this->name)));
@@ -64,6 +91,12 @@ class FileDatabase
         return $items;
     }
 
+    /**
+     * Get full path of some file database's part
+     *
+     * @param $partNumber string File databse part
+     * @return string Full path of some file database's part
+     */
     protected function getFilePath($partNumber)
     {
         return sprintf($this->path . $this->name, $partNumber);

@@ -8,6 +8,15 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class RateService
 {
+    /**
+     * Get bitcoin rate via bitpay api
+     *
+     * @return float Bitcoin rate
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws AccessDeniedException
+     * @throws InvalidTypeException
+     */
     public function getBtcUahRate()
     {
         $client = new Client();

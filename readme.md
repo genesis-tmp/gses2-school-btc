@@ -28,9 +28,10 @@
    завдання іншими мовами можна, проте, це не буде перевагою.
 
 ## Використані засоби
-1. PHP + Laravel
-2. BitPay API - https://bitpay.com/api/
-3. Mailtrap - https://mailtrap.io/
+1. Docker
+2. PHP + Composer + Laravel
+3. BitPay API - https://bitpay.com/api/
+4. Mailtrap - https://mailtrap.io/
 
 ## Опис технічних деталей
 * Вся конфігурація проекту знаходиться у файлі .env
